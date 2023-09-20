@@ -90,12 +90,10 @@ public class Robot extends TimedRobot {
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
-        leftMotor1.set(0.8);
         break;
       case kDefaultAuto:
       default:
         // Put default auto code here
-        leftMotor0.set(0.8);
         break;
     }
   }
