@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 //import edu.wpi.first.wpilibj.Timer;
@@ -33,7 +35,7 @@ public class Robot extends TimedRobot {
   private Spark leftMotor1 = new Spark(1);
   private Spark rightMotor2 = new Spark(2);
   private Spark rightMotor3 = new Spark(3);
-  
+  private Spark headMotor = new Spark(4);
   private Joystick controller = new Joystick(0);
   private SlewRateLimiter filter = new SlewRateLimiter(0.5);
 
@@ -106,9 +108,22 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //double speed = 1;
-    double speed = -controller.getRawAxis(1) * 1;
+    double speed = -controller.getRawAxis(1) * 0.9;
     double turn = -controller.getRawAxis(4) * 0.7;
     drive.arcadeDrive(deadBand(speed,0.05),turn);
+    if(controller.getRawButton(1)){
+      headMotor.set(-0.2);
+    }
+    if(controller.getRawButton(2)){
+      headMotor.set(0.2);
+    }
+    if(controller.getRawButton(3)){
+      headMotor.set(0);
+    }
+    //else if(controller.getRawButton(7)==false)
+    //{
+      //headMotor.set(0);
+    //}
   }
 
   /** This function is called once when the robot is disabled. */
